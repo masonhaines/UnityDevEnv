@@ -688,8 +688,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19174ccb4fbfb9b448f73b323ceba07a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
-  moveSpeed: 1
+  moveSpeed: 5
+  accelerationSpeed: 15
   jumpForce: 3
+  maxJumps: 2
   coyoteTime: 0.1
   GroundLayer:
     serializedVersion: 2
