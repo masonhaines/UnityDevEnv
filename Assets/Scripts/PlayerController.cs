@@ -25,7 +25,7 @@ public class PlayerController : MonoBehaviour
     private PlayerControls playerControls;
     private Vector2 WASDEvent;
     private Rigidbody2D myRigidBody;
-    private bool bIsFacingRight = true;
+    // private bool bIsFacingRight = true;
     
     private bool jumpPressed;
     private int jumpsRemaining;
@@ -125,13 +125,13 @@ public class PlayerController : MonoBehaviour
         jumpPressed = false;
     }
     
-    private void Turn()
-    {
-        //stores scale and flips the player along the x axis, 
-        Vector3 scale = transform.localScale; 
-        scale.x *= -1;
-        transform.localScale = scale;
-
-        bIsFacingRight = !bIsFacingRight;
-    }
+    // private void Turn()
+    // {
+    //     //stores scale and flips the player along the x axis, 
+    //     Vector3 scale = transform.localScale; 
+    //     scale.x *= -1;
+    //     transform.localScale = scale;
+    //
+    //     bIsFacingRight = !bIsFacingRight;
+    // }
 }
