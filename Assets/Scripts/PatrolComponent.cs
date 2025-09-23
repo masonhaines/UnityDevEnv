@@ -12,7 +12,7 @@ public class PatrolComponent : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        int patrolPointCount = transform.childCount; // get all child of patrol prefab
+        int patrolPointCount = transform.childCount; // get all children of patrol prefab
         if (numberOfActivePatrolPoints > patrolPointCount)
         {
             numberOfActivePatrolPoints = patrolPointCount;
@@ -38,10 +38,10 @@ public class PatrolComponent : MonoBehaviour
     
     void Update() // Update is called once per frame
     {
-        if (moveRef != null && moveRef.canMove())
+        if (moveRef != null && moveRef.bHasMoved)
         {
             targetPosition = new Vector2(patrolPointLocations[currentPatrolIndex].position.x, patrolPointLocations[currentPatrolIndex].position.y);
-            
+
             moveRef.newTargetLocation(targetPosition);
             if (currentPatrolIndex < numberOfActivePatrolPoints - 1)
             {
@@ -51,6 +51,8 @@ public class PatrolComponent : MonoBehaviour
             {
                 currentPatrolIndex = 0;
             }
+            
+            moveRef.bHasMoved = false;
         }
     }
     

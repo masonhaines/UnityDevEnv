@@ -1,8 +1,11 @@
 using UnityEngine;
 using AiMovement;
+using UnityEngine.UIElements.Experimental;
 public class AiMovementComponent : MonoBehaviour, IMove
 {
     [SerializeField] private float moveSpeed = 5f;
+    [SerializeField] private bool bLocalHasMoved = true;
+    public bool bHasMoved { get => bLocalHasMoved; set => bLocalHasMoved = value; }
     private Rigidbody2D moversRigidbody2D;
     private Vector2 targetLocation;
 
@@ -18,6 +21,12 @@ public class AiMovementComponent : MonoBehaviour, IMove
     void Update()
     {
         Moving(targetLocation);
+
+        if (Vector2.Distance(moversRigidbody2D.transform.position, targetLocation) < 0.1f)
+        {
+            // Reached the target location
+            bHasMoved = true;
+        }
     }
 
     public void Moving(Vector2 targetLocationToMoveTo)
@@ -30,11 +39,8 @@ public class AiMovementComponent : MonoBehaviour, IMove
 
     public void newTargetLocation(Vector2 patrolPointTargetLocation)
     {
-        this.targetLocation = patrolPointTargetLocation;
+        targetLocation = patrolPointTargetLocation;
     }
 
-    public bool canMove()
-    {
-        throw new System.NotImplementedException();
-    }
+
 }
