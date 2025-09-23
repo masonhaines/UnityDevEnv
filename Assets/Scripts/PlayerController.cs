@@ -16,7 +16,7 @@ public class PlayerController : MonoBehaviour
     }
 
     [SerializeField] private float moveSpeed = 1f;
-    [SerializeField] private float accelerationSpeed = 5f;
+    // [SerializeField] private float accelerationSpeed = 5f;
     [SerializeField] private float jumpForce = 25f;
     [SerializeField] private int maxJumps = 2; // inlcudes 1
     [SerializeField] private float coyoteTime = 0.1f; // forgiveness window
@@ -103,11 +103,12 @@ public class PlayerController : MonoBehaviour
 
         // myRigidBody.MovePosition(newPosition);
         
-        float targetVelocityX = WASDEvent.x * moveSpeed;
-        float newVelocityX = Mathf.MoveTowards(myRigidBody.linearVelocity.x, targetVelocityX, accelerationSpeed * Time.deltaTime);
-        myRigidBody.linearVelocity = new Vector2(newVelocityX, myRigidBody.linearVelocity.y);
+        // if acc is wanted 
+        // float targetVelocityX = WASDEvent.x * moveSpeed;
+        // float newVelocityX = Mathf.MoveTowards(myRigidBody.linearVelocity.x, targetVelocityX, accelerationSpeed * Time.deltaTime);
+        // myRigidBody.linearVelocity = new Vector2(newVelocityX, myRigidBody.linearVelocity.y);
 
-        // myRigidBody.linearVelocity = new Vector2(WASDEvent.x * moveSpeed, myRigidBody.linearVelocity.y);
+        myRigidBody.linearVelocity = new Vector2(WASDEvent.x * moveSpeed, myRigidBody.linearVelocity.y);
 
     }
 

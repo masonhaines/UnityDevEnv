@@ -5,7 +5,6 @@ using UnityEngine;
 public class DamageComponent : MonoBehaviour
 {
     
-
     [SerializeField] private int DamageAmount;
     [SerializeField] private bool bProjectile;
 
