@@ -5,32 +5,23 @@ using AiMovement;
 public class PatrolComponent : MonoBehaviour
 {
 
-    [SerializeField] private int numberOfActivePatrolPoints;
     [SerializeField] private Transform[] patrolPointLocations;
+    [SerializeField] private float waitTimeBetweenPatrolPoints;
+    private int numberOfActivePatrolPoints;
+    private float decrementTimer;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        int patrolPointCount = transform.childCount; // get all children of patrol prefab
-        if (numberOfActivePatrolPoints > patrolPointCount)
-        {
-            numberOfActivePatrolPoints = patrolPointCount;
-        }
-        
-        patrolPointLocations = new Transform[numberOfActivePatrolPoints];
-        for (int i = 0; i < numberOfActivePatrolPoints; i++)
-        {
-            patrolPointLocations[i] = transform.GetChild(i); // get child of prefab and add to array 
-        }
+        numberOfActivePatrolPoints = patrolPointLocations.Length;
     }
 
-    private IMove moveRef;
+    private ITarget moveRef;
     
     void Awake()
     {
-        moveRef = GetComponentInParent<IMove>(); // reference to all other objects that have implement interface in parent prefab
-        
+        moveRef = GetComponentInParent<ITarget>(); // reference to all other objects that have implement interface in parent prefab
     }
     
     private Vector2 targetPosition;
@@ -38,22 +29,32 @@ public class PatrolComponent : MonoBehaviour
     
     void Update() // Update is called once per frame
     {
-        if (moveRef != null && moveRef.bHasMoved)
-        {
-            targetPosition = new Vector2(patrolPointLocations[currentPatrolIndex].position.x, patrolPointLocations[currentPatrolIndex].position.y);
+        if (moveRef == null) return;
 
-            moveRef.newTargetLocation(targetPosition);
-            if (currentPatrolIndex < numberOfActivePatrolPoints - 1)
+
+        if (moveRef.bHasReachedTarget)
+        {
+            if (decrementTimer <= 0f)
             {
-                currentPatrolIndex++;
+                if (currentPatrolIndex < numberOfActivePatrolPoints - 1)
+                {
+                    // Debug.Log($"Current Patrol Index: {currentPatrolIndex}");
+                    currentPatrolIndex++;
+                }
+                else
+                {
+                    currentPatrolIndex = 0;
+                }
+            
+                // targetPosition = new Vector2(patrolPointLocations[currentPatrolIndex].position.x, patrolPointLocations[currentPatrolIndex].position.y);
+                targetPosition = patrolPointLocations[currentPatrolIndex].position; 
+                moveRef.newTargetLocation(targetPosition);
+                decrementTimer = waitTimeBetweenPatrolPoints; // reset
             }
             else
             {
-                currentPatrolIndex = 0;
+                decrementTimer -= Time.deltaTime;
             }
-            
-            moveRef.bHasMoved = false;
         }
     }
-    
 }

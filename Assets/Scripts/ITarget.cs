@@ -2,9 +2,9 @@ using UnityEngine;
 
 namespace AiMovement
 {
-    public interface IMove
+    public interface ITarget
     {
-        bool bHasMoved { get; set; }
+        bool bHasReachedTarget { get; set; }
         void newTargetLocation(Vector2 patrolPointTargetLocation);
     }
 }
