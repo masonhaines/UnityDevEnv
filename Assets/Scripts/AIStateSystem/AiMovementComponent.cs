@@ -1,5 +1,4 @@
 using UnityEngine;
-using AiMovement;
 using Unity.VisualScripting;
 using UnityEngine.UIElements.Experimental;
 public class AiMovementComponent : MonoBehaviour, ITarget
@@ -47,9 +46,9 @@ public class AiMovementComponent : MonoBehaviour, ITarget
     }
 
 
-    public void newTargetLocation(Vector2 patrolPointTargetLocation)
+    public void newTargetLocation(Vector2 moveToTargetLocation)
     {
-        targetLocation = patrolPointTargetLocation;
+        targetLocation = moveToTargetLocation;
         bLocalHasMovedToTarget = false;
         Debug.Log(targetLocation);
 
