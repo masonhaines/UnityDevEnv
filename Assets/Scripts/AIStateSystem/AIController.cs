@@ -10,7 +10,10 @@ public class AIController : MonoBehaviour
     public PatrolComponent patrolComponentObject;
     public ChaseComponent chaseComponentObject;
     public AiMovementComponent movementComponentObject;
+
+    public Transform PlayerTransform;
     
+
     
     private IAiStates currentState;
 
@@ -19,6 +22,18 @@ public class AIController : MonoBehaviour
         patrolComponentObject = GetComponent<PatrolComponent>();
         chaseComponentObject = GetComponent<ChaseComponent>();
         movementComponentObject = GetComponent<AiMovementComponent>();
+
+        // get player transform
+        GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
+        if (playerObj != null)
+        {
+            PlayerTransform = playerObj.transform;
+        }
+        else
+        {
+            Debug.LogError("Player object with tag 'Player' not found in the scene.");
+        }
+
     }
 
     void Start()

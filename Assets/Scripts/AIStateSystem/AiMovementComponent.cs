@@ -53,7 +53,6 @@ public class AiMovementComponent : MonoBehaviour, ITarget
         targetLocation = moveToTargetLocation;
         bLocalHasMovedToTarget = false;
         Debug.Log(targetLocation);
-
     }
 
 

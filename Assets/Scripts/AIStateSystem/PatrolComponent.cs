@@ -9,10 +9,6 @@ public class PatrolComponent : MonoBehaviour
     [SerializeField] private float waitTimeBetweenPatrolPoints;
     private int numberOfActivePatrolPoints;
     // private float decrementTimer;
-    
-    
-
-
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private void Start()
@@ -23,21 +19,19 @@ public class PatrolComponent : MonoBehaviour
     }
 
     private ITarget moveRef;
-    
+
     private void Awake()
     {
         moveRef = GetComponentInParent<ITarget>(); // reference to all other objects that have implement interface in parent prefab
-        
-
     }
-    
+
     private Vector2 targetPosition;
     private int currentPatrolIndex = 0;
-    
+
     private IEnumerator SetNewTargetPatrolPoint()
     {
         yield return new WaitForSeconds(waitTimeBetweenPatrolPoints);
-        
+
         if (currentPatrolIndex < numberOfActivePatrolPoints - 1)
         {
             // Debug.Log($"Current Patrol Index: {currentPatrolIndex}");
@@ -47,21 +41,19 @@ public class PatrolComponent : MonoBehaviour
         {
             currentPatrolIndex = 0;
         }
-        
-        targetPosition = patrolPointLocations[currentPatrolIndex].position; 
+
+        targetPosition = patrolPointLocations[currentPatrolIndex].position;
         moveRef.NewTargetLocation(targetPosition);
     }
-    
+
     // https://docs.unity3d.com/6000.2/Documentation/ScriptReference/WaitForSeconds.html
     public void OnTargetReachedListener()
     {
-        if (moveRef == null) return ;
-        
+        if (moveRef == null) return;
+        // Debug.Log("Event call from movement has been heard in patrol component");
         StartCoroutine(SetNewTargetPatrolPoint());
     }
-
-
-
+    
 // void Update() // Update is called once per frame
     // {
     //     if (moveRef == null) return;
@@ -92,5 +84,5 @@ public class PatrolComponent : MonoBehaviour
     //         }
     //     }
     // }
-    
+
 }
