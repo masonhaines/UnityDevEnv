@@ -2,8 +2,8 @@ using UnityEngine;
 
 public interface ITarget
 {
-    bool bHasReachedTarget { get; set; }
-    void newTargetLocation(Vector2 moveToTargetLocation);
+    // bool bHasReachedTarget { get; set; }
+    void NewTargetLocation(Vector2 moveToTargetLocation);
 }
 
 

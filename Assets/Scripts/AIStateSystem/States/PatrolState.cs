@@ -13,6 +13,8 @@ public class PatrolState : IAiStates
     public void Enter(AIController aiController)
     {
         aiControllerInstance.patrolComponentObject.enabled = true;
+        aiController.movementComponentObject.OnTargetReachedCaller +=
+            aiController.patrolComponentObject.OnTargetReachedListener;
     }
 
     public void PollPerception(AIController aiController)
@@ -26,6 +28,8 @@ public class PatrolState : IAiStates
     public void Exit(AIController aiController)
     {
         aiControllerInstance.patrolComponentObject.enabled = false;
+        aiController.movementComponentObject.OnTargetReachedCaller -=
+            aiController.patrolComponentObject.OnTargetReachedListener;
     }
 }
         
