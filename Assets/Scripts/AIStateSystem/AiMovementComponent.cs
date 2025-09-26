@@ -7,7 +7,7 @@ public class AiMovementComponent : MonoBehaviour, ITarget
     
     [SerializeField] private float moveSpeed = 5f;
     [SerializeField] private bool bLocalHasMovedToTarget = false;
-    // public bool bHasReachedTarget { get => bLocalHasMovedToTarget; set => bLocalHasMovedToTarget = value; }
+    public bool bHasReachedTarget { get => bLocalHasMovedToTarget; set => bLocalHasMovedToTarget = value; }
     private Rigidbody2D moversRigidbody2D;
     private Vector2 targetLocation;
 
@@ -15,12 +15,12 @@ public class AiMovementComponent : MonoBehaviour, ITarget
     private void Start()
     {
         moversRigidbody2D = GetComponent<Rigidbody2D>();
-        NewTargetLocation(new Vector2(0, 0)); // init target location 
+        // NewTargetLocation(new Vector2(0, 0)); // init target location 
         Debug.Log(targetLocation);
     }
 
     // Update is called once per frame
-    private void Update()
+    void Update()
     {
         if (!bLocalHasMovedToTarget)
         {
@@ -30,34 +30,21 @@ public class AiMovementComponent : MonoBehaviour, ITarget
 
     public void Moving()
     {
-        // // throw new System.NotImplementedException();
-        // // moversRigidbody2D.transform.position = Vector2.MoveTowards(moversRigidbody2D.transform.position, targetLocation, moveSpeed * Time.deltaTime);
-        // moversRigidbody2D.MovePosition(Vector2.MoveTowards(moversRigidbody2D.transform.position, targetLocation, moveSpeed * Time.deltaTime));
-        //
-        // // if (abs(moversRigidbody2D.transform.position.y - targetLocation.y) >= 0.1f) return;
+        // throw new System.NotImplementedException();
+        // moversRigidbody2D.transform.position = Vector2.MoveTowards(moversRigidbody2D.transform.position, targetLocation, moveSpeed * Time.deltaTime);
+        moversRigidbody2D.MovePosition(Vector2.MoveTowards(moversRigidbody2D.transform.position, targetLocation, moveSpeed * Time.deltaTime));
+        
+        // if (abs(moversRigidbody2D.transform.position.y - targetLocation.y) >= 0.1f) return;
         // if (Vector2.Distance(moversRigidbody2D.position, targetLocation) <= 0.1f)
-        // {
-        //     // Reached the target location
-        //     bLocalHasMovedToTarget = true;
-        //     moversRigidbody2D.position = targetLocation;
-        //     OnTargetReachedCaller.Invoke();
-        // }
-        
-        
-        Vector2 newPos = Vector2.MoveTowards(
-            moversRigidbody2D.position,
-            targetLocation,
-            moveSpeed * Time.deltaTime);
-
-        moversRigidbody2D.MovePosition(newPos);
-
-        // check full 2D distance, not just x
-        if (Vector2.Distance(newPos, targetLocation) <= 0.01f)
+        if (Mathf.Abs(moversRigidbody2D.position.x - targetLocation.x) <= 0.1f)
         {
+            // Reached the target location
             bLocalHasMovedToTarget = true;
-            moversRigidbody2D.position = targetLocation; // snap to exact point
+            moversRigidbody2D.position = targetLocation;
             OnTargetReachedCaller.Invoke();
+            Debug.Log("Moved to target location");
         }
+        
     }
 
 

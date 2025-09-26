@@ -18,6 +18,8 @@ public class PatrolComponent : MonoBehaviour
     private void Start()
     {
         numberOfActivePatrolPoints = patrolPointLocations.Length;
+        targetPosition = patrolPointLocations[currentPatrolIndex].position;
+        moveRef.NewTargetLocation(targetPosition);
     }
 
     private ITarget moveRef;
@@ -25,6 +27,8 @@ public class PatrolComponent : MonoBehaviour
     private void Awake()
     {
         moveRef = GetComponentInParent<ITarget>(); // reference to all other objects that have implement interface in parent prefab
+        
+
     }
     
     private Vector2 targetPosition;

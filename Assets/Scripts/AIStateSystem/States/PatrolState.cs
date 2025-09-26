@@ -28,6 +28,8 @@ public class PatrolState : IAiStates
     public void Exit(AIController aiController)
     {
         aiControllerInstance.patrolComponentObject.enabled = false;
+        aiController.movementComponentObject.OnTargetReachedCaller -=
+            aiController.patrolComponentObject.OnTargetReachedListener;
     }
 }
         
