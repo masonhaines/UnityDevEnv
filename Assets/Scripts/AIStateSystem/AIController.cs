@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class AIController : MonoBehaviour
@@ -8,9 +9,18 @@ public class AIController : MonoBehaviour
     
     public PatrolComponent patrolComponentObject;
     public ChaseComponent chaseComponentObject;
+    public AiMovementComponent movementComponentObject;
     
     
     private IAiStates currentState;
+
+    private void Awake()
+    {
+        patrolComponentObject = GetComponent<PatrolComponent>();
+        chaseComponentObject = GetComponent<ChaseComponent>();
+        movementComponentObject = GetComponent<AiMovementComponent>();
+    }
+
     void Start()
     {
         patrol = new PatrolState(this);
