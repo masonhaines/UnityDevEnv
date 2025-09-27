@@ -55,13 +55,20 @@ public class AiMovementComponent : MonoBehaviour, ITarget
         // throw new System.NotImplementedException();
         // moversRigidbody2D.transform.position = Vector2.MoveTowards(moversRigidbody2D.transform.position, targetLocation, moveSpeed * Time.deltaTime);
         Vector2 moveTowardsPosition = Vector2.MoveTowards(moversRigidbody2D.transform.position, targetLocation, moveSpeed * Time.deltaTime);
-        if (moveTowardsPosition.x > moversRigidbody2D.position.x)
+        
+        // ***** Chat helped with flip lock and delta time toggling
+        Vector2 direction = targetLocation - moversRigidbody2D.position;
+        
+        switch (direction.x)
         {
-            SpriteRenderer.flipX = true;
-        }
-        else if (moveTowardsPosition.x < moversRigidbody2D.position.x)
-        {
-            SpriteRenderer.flipX = false;
+            case > 0.1f:
+                SpriteRenderer.flipX = true; // only flips sprite
+                transform.localScale = new Vector3(1, 1, 1);  // face left
+                break;
+            case < -0.1f:
+                // SpriteRenderer.flipX = false; // only flips sprite
+                transform.localScale = new Vector3(-1, 1, 1);  // face left
+                break;
         }
         
         moversRigidbody2D.MovePosition(moveTowardsPosition);

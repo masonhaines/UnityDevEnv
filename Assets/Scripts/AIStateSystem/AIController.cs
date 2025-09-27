@@ -1,10 +1,12 @@
 using System;
 using UnityEngine;
 
+// SET UP
+// collider that is keeping the enemy from falling through the map is going to need to have the noFriction material
 public class AIController : MonoBehaviour
 {
     [SerializeField] private int attackRange = 5;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    
     private PatrolState patrol;
     private ChaseState chase;
     private DeathState death;
@@ -13,7 +15,7 @@ public class AIController : MonoBehaviour
     public ChaseComponent chaseComponentObject;
     public AiMovementComponent movementComponentObject;
     public HealthComponent healthComponentObject;
-    public Transform DetectedTargetTransform;
+    public Transform detectedTargetTransform;
     public Animator myAnimator;
     
     private IAiStates currentState;
@@ -21,7 +23,7 @@ public class AIController : MonoBehaviour
     public bool bIsAttacking;
     public bool bInRangeToAttack;
     
-
+    
     private void Awake()
     {
         patrolComponentObject = GetComponent<PatrolComponent>();
@@ -30,34 +32,25 @@ public class AIController : MonoBehaviour
         healthComponentObject = GetComponent<HealthComponent>();
         myAnimator = GetComponentInChildren<Animator>(); // this is because the animator is in the sprite child object of the enemy prefab 
         
-        // add a health component listener for on death 
+        // add a health component listener for on death and on Hit ie taking damage
         healthComponentObject.OnDeathCaller += OnDeathListener;
-        
-        
-        // // get player transform
-        // GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
-        // if (playerObj != null)
-        // {
-        //     PlayerTransform = playerObj.transform; // this new ref needs to be given to the perception component
-        // }
-        // else
-        // {
-        //     Debug.LogError("Player object with tag 'Player' not found in the scene.");
-        // }
+        healthComponentObject.OnHitCaller += OnHitListener;
+
     }
 
     public void PerceptionTargetFound(Transform target)
     {
         bHasPerceivedTarget = true;
-        setNewState(chase);
-        DetectedTargetTransform = target;
+        detectedTargetTransform = target;
+        Debug.Log("Target found: " + detectedTargetTransform.name);
     }
 
     public void PerceptionTargetLost(Transform target)
     {
         bHasPerceivedTarget = false;
         var lastKnownTargetTransform = target;
-        DetectedTargetTransform = lastKnownTargetTransform;
+        detectedTargetTransform = lastKnownTargetTransform;
+        Debug.Log("Target lost: " + detectedTargetTransform.name);
     }
 
     private void Start()
@@ -73,11 +66,19 @@ public class AIController : MonoBehaviour
     {
         currentState.PollPerception(this);
 
-        if (bHasPerceivedTarget)
+        if (bHasPerceivedTarget && !healthComponentObject.GetIsKnockedBack())
+        {
+            if (currentState == chase)
+            {
+                setNewState(chase);
+            }
+        }
+
+        if (bHasPerceivedTarget && detectedTargetTransform is not null)
         {
             
             // https://docs.unity3d.com/6000.2/Documentation/ScriptReference/Vector3-sqrMagnitude.html
-            var differenceInVectors = DetectedTargetTransform.position - transform.position;
+            var differenceInVectors = detectedTargetTransform.position - transform.position;
             var distanceFromPlayer = differenceInVectors.sqrMagnitude;
             if (distanceFromPlayer < attackRange * attackRange)
             {
@@ -86,6 +87,8 @@ public class AIController : MonoBehaviour
             else { bInRangeToAttack = false; }
         }
     }
+    
+    
     
     public void setNewState(IAiStates newState)
     {
@@ -102,5 +105,11 @@ public class AIController : MonoBehaviour
         // this really should set the enemy location to somewhere else and a system is added in the scene and checks 
         // on tick for objects with enemy tag and if they are dead.
         setNewState(death);
+    }
+
+    private void OnHitListener(Transform target)
+    {
+        myAnimator.SetTrigger("tOnHit");
+        PerceptionTargetFound(target);
     }
 }
