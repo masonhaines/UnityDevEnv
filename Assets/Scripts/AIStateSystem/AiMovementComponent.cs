@@ -29,14 +29,16 @@ public class AiMovementComponent : MonoBehaviour, ITarget
     // Update is called once per frame
     void Update()
     {
-        if (!bLocalHasMovedToTarget || aiController.healthComponentObject.GetIsKnockedBack())
+        if (aiController.healthComponentObject.GetIsKnockedBack())
+        {
+            // set up for rigidbody.velocity = vector2.zero 
+            return;
+        }
+        if (!bLocalHasMovedToTarget)
         {
             Moving();
         }
-        else if (aiController.healthComponentObject.GetIsKnockedBack())
-        {
-            // set up for rigidbody.velocity = vector2.zero 
-        }
+
     }
 
     public void Moving()

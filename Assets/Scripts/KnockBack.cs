@@ -20,6 +20,8 @@ public class KnockBack : MonoBehaviour
         bKnockedBack = true;
         difference.y = knockBackLiftAmount;
         knockBackRigidbody2D.AddForce(difference * knockBackAmount * knockBackRigidbody2D.mass, ForceMode2D.Impulse);
+
+        StartCoroutine(KnockBackCoroutine());
     }
 
     private IEnumerator KnockBackCoroutine()
