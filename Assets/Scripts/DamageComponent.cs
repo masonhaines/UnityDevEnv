@@ -5,9 +5,9 @@ using UnityEngine;
 public class DamageComponent : MonoBehaviour
 {
     
-    [SerializeField] private int DamageAmount;
+    [SerializeField] private int damageAmount;
     [SerializeField] private bool bProjectile;
-    [SerializeField] private float knockBackAmount;
+    [SerializeField] private float knockBackAmount = 3;
     [SerializeField] private float knockBackLiftAmount;
 
 
@@ -40,7 +40,7 @@ public class DamageComponent : MonoBehaviour
         if (canAttack && damageable != null) 
         // if (damageable != null)
         {
-            damageable.Damage(DamageAmount, damageSource, knockBackAmount, knockBackLiftAmount);
+            damageable.Damage(damageAmount, damageSource, knockBackAmount, knockBackLiftAmount);
             canAttack = false;
             TimeSinceLastAttack = 0;
         }

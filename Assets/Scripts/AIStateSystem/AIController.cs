@@ -68,9 +68,10 @@ public class AIController : MonoBehaviour
 
         if (bHasPerceivedTarget && !healthComponentObject.GetIsKnockedBack())
         {
-            if (currentState == chase)
+            if (currentState != chase)
             {
                 setNewState(chase);
+                Debug.Log("Chase");
             }
         }
 

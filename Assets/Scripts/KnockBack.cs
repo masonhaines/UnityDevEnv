@@ -19,9 +19,13 @@ public class KnockBack : MonoBehaviour
         Vector2 difference = (transform.position - damageSource.position).normalized;
         bKnockedBack = true;
         difference.y = knockBackLiftAmount;
+        
+        // stop any existing momentum before applying force - chat - fix on double knock back force occurring 
+        knockBackRigidbody2D.linearVelocity = Vector2.zero;
         knockBackRigidbody2D.AddForce(difference * knockBackAmount * knockBackRigidbody2D.mass, ForceMode2D.Impulse);
 
         StartCoroutine(KnockBackCoroutine());
+        
     }
 
     private IEnumerator KnockBackCoroutine()

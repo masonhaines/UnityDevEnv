@@ -230,6 +230,9 @@ PrefabInstance:
       addedObject: {fileID: 6763358696992364142}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 1369442348009616825, guid: 65dc6100b11cdeb44b6da96c227a0af2, type: 3}
+      insertIndex: 2
+      addedObject: {fileID: 2920116029074946755}
+    - targetCorrespondingSourceObject: {fileID: 1369442348009616825, guid: 65dc6100b11cdeb44b6da96c227a0af2, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2030704639727189874}
     - targetCorrespondingSourceObject: {fileID: 1369442348009616825, guid: 65dc6100b11cdeb44b6da96c227a0af2, type: 3}
@@ -237,7 +240,7 @@ PrefabInstance:
       addedObject: {fileID: 2552752262004345722}
     - targetCorrespondingSourceObject: {fileID: 1369442348009616825, guid: 65dc6100b11cdeb44b6da96c227a0af2, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 2920116029074946755}
+      addedObject: {fileID: 7731367112728203874}
     - targetCorrespondingSourceObject: {fileID: 1369442348009616825, guid: 65dc6100b11cdeb44b6da96c227a0af2, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2092245104144309530}
@@ -344,6 +347,28 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1369442348009616825, guid: 65dc6100b11cdeb44b6da96c227a0af2, type: 3}
   m_PrefabInstance: {fileID: 5375725619595986582}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2920116029074946755
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6456848461571633967}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34953a731dc6617418c0b91c3f36ac94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AIController
+  attackRange: 5
+  patrolComponentObject: {fileID: 0}
+  chaseComponentObject: {fileID: 0}
+  movementComponentObject: {fileID: 0}
+  healthComponentObject: {fileID: 0}
+  detectedTargetTransform: {fileID: 0}
+  myAnimator: {fileID: 0}
+  bHasPerceivedTarget: 0
+  bIsAttacking: 0
+  bInRangeToAttack: 0
 --- !u!114 &2030704639727189874
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -380,7 +405,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   waitTimeBetweenPatrolPoints: 0
---- !u!114 &2920116029074946755
+--- !u!114 &7731367112728203874
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -389,19 +414,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 6456848461571633967}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 34953a731dc6617418c0b91c3f36ac94, type: 3}
+  m_Script: {fileID: 11500000, guid: 18c940bf21e65e940a1b8838e414d2d6, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::AIController
-  attackRange: 5
-  patrolComponentObject: {fileID: 0}
-  chaseComponentObject: {fileID: 0}
-  movementComponentObject: {fileID: 0}
-  healthComponentObject: {fileID: 0}
-  detectedTargetTransform: {fileID: 0}
-  myAnimator: {fileID: 0}
-  bHasPerceivedTarget: 0
-  bIsAttacking: 0
-  bInRangeToAttack: 0
+  m_EditorClassIdentifier: Assembly-CSharp::ChaseComponent
 --- !u!114 &2092245104144309530
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -495,7 +510,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 634bbe05af042934d94817758cabea09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DamageComponent
-  DamageAmount: 0
+  damageAmount: 0
   bProjectile: 0
   knockBackAmount: 0
   knockBackLiftAmount: 0
