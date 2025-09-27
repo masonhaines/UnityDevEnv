@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class AIController : MonoBehaviour
 {
+    [SerializeField] private int attackRange = 5;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private PatrolState patrol;
     private ChaseState chase;
@@ -12,10 +13,14 @@ public class AIController : MonoBehaviour
     public ChaseComponent chaseComponentObject;
     public AiMovementComponent movementComponentObject;
     public HealthComponent healthComponentObject;
-    public Transform PlayerTransform;
+    public Transform DetectedTargetTransform;
     public Animator myAnimator;
     
     private IAiStates currentState;
+    public bool bHasPerceivedTarget;
+    public bool bIsAttacking;
+    public bool bInRangeToAttack;
+    
 
     private void Awake()
     {
@@ -29,19 +34,33 @@ public class AIController : MonoBehaviour
         healthComponentObject.OnDeathCaller += OnDeathListener;
         
         
-        // get player transform
-        GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
-        if (playerObj != null)
-        {
-            PlayerTransform = playerObj.transform; // this new ref needs to be given to the perception component
-        }
-        else
-        {
-            Debug.LogError("Player object with tag 'Player' not found in the scene.");
-        }
+        // // get player transform
+        // GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
+        // if (playerObj != null)
+        // {
+        //     PlayerTransform = playerObj.transform; // this new ref needs to be given to the perception component
+        // }
+        // else
+        // {
+        //     Debug.LogError("Player object with tag 'Player' not found in the scene.");
+        // }
     }
 
-    void Start()
+    public void PerceptionTargetFound(Transform target)
+    {
+        bHasPerceivedTarget = true;
+        setNewState(chase);
+        DetectedTargetTransform = target;
+    }
+
+    public void PerceptionTargetLost(Transform target)
+    {
+        bHasPerceivedTarget = false;
+        var lastKnownTargetTransform = target;
+        DetectedTargetTransform = lastKnownTargetTransform;
+    }
+
+    private void Start()
     {
         patrol = new PatrolState(this);
         chase = new ChaseState(this);
@@ -50,9 +69,22 @@ public class AIController : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        currentState.PollPerception(this); 
+        currentState.PollPerception(this);
+
+        if (bHasPerceivedTarget)
+        {
+            
+            // https://docs.unity3d.com/6000.2/Documentation/ScriptReference/Vector3-sqrMagnitude.html
+            var differenceInVectors = DetectedTargetTransform.position - transform.position;
+            var distanceFromPlayer = differenceInVectors.sqrMagnitude;
+            if (distanceFromPlayer < attackRange * attackRange)
+            {
+                bInRangeToAttack = true;
+            } 
+            else { bInRangeToAttack = false; }
+        }
     }
     
     public void setNewState(IAiStates newState)
