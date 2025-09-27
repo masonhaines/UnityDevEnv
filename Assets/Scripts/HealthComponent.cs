@@ -3,41 +3,37 @@ using Combat; // this is the includable for the IDamageable
 
 public class HealthComponent : MonoBehaviour, IDamageable
 {
+    public event System.Action OnDeathCaller = delegate { }; 
 
-    [SerializeField] private int health;
+    [SerializeField] private int maxHealth;
     private int currentHealth;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    private KnockBack knockBack;
 
     private void Awake() // Awake is called when an enabled script instance is being loaded.
     {
-        currentHealth = health;
+        knockBack = GetComponent<KnockBack>();
+        currentHealth = maxHealth;
     }
     
-    // Start is called on the frame when a script is enabled just before any of the Update methods are called the first time.
-    // This function can be a coroutine.
-    void Start()
+    public void Damage(int damageAmount, GameObject damageSource, float knockBackAmount, float knockBackLiftAmount)
     {
-        
-    }
-
-    public void Damage(int damageAmount)
-    {
-        health -= damageAmount;
-        Debug.Log($"{gameObject.name} is now {health} after damage from opponent");
-        Debug.Log("current health: " + health); // using + for this is so JS
-
-
-        if (health <= 0)
+        currentHealth -= damageAmount;
+        knockBack.CreateKnockBack(damageSource.transform, knockBackAmount, knockBackLiftAmount);
+        if (currentHealth <= 0)
         {
             Death();
-            Debug.Log("Object is dead");
         }
+    }
 
+    public bool GetIsKnockedBack()
+    {
+        return knockBack.bKnockedBack;
     }
 
     private void Death()
     {
-        Destroy(gameObject); // this really should be pooled, maybe with a pooling interface and a global script to destroy at some points in game 
-        Debug.Log("Object is dead");
+        // call invoke so listener instance can take action. only listener should be the ai controller and player controller 
+        OnDeathCaller?.Invoke(); // if not null invoke, rider recommended this null propogation as opposed to if null
+        Debug.Log("Death");
     }
 }

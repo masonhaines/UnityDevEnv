@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 3246113699704011667}
   - component: {fileID: 6245015259390129584}
   - component: {fileID: 3534090611083794302}
-  - component: {fileID: 3826222478534254644}
   - component: {fileID: 2136153642964654598}
   m_Layer: 0
   m_Name: EnemyBase
@@ -169,18 +168,6 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 2}
   m_EdgeRadius: 0
---- !u!114 &3826222478534254644
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1369442348009616825}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c3399c8fcb12833488c4a5843bd5652c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: '::'
 --- !u!114 &2136153642964654598
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -193,7 +180,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d40127dd8de5704caf4c3d9568b890b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HealthComponent
-  health: 50
+  maxHealth: 0
 --- !u!1 &3325566589297371907
 GameObject:
   m_ObjectHideFlags: 0

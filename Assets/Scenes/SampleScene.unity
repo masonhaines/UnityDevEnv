@@ -863,29 +863,9 @@ MonoBehaviour:
   patrolComponentObject: {fileID: 0}
   chaseComponentObject: {fileID: 0}
   movementComponentObject: {fileID: 0}
+  healthComponentObject: {fileID: 0}
   PlayerTransform: {fileID: 0}
---- !u!95 &1555437817
-Animator:
-  serializedVersion: 7
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1555437801}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: b64a72ac0b05da64fa9b71cc17fabc23, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_AnimatePhysics: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
+  myAnimator: {fileID: 0}
 --- !u!1 &1664894076 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6647232440405953180, guid: 65dc6100b11cdeb44b6da96c227a0af2, type: 3}
@@ -1147,9 +1127,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1369442348009616825, guid: 65dc6100b11cdeb44b6da96c227a0af2, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1555437816}
-    - targetCorrespondingSourceObject: {fileID: 1369442348009616825, guid: 65dc6100b11cdeb44b6da96c227a0af2, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1555437817}
     - targetCorrespondingSourceObject: {fileID: 6647232440405953180, guid: 65dc6100b11cdeb44b6da96c227a0af2, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1664894078}

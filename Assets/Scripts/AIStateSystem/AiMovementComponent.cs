@@ -7,9 +7,16 @@ public class AiMovementComponent : MonoBehaviour, ITarget
     
     [SerializeField] private float moveSpeed = 5f;
     [SerializeField] private bool bLocalHasMovedToTarget = false;
-    public bool bHasReachedTarget { get => bLocalHasMovedToTarget; set => bLocalHasMovedToTarget = value; }
+    // public bool bHasReachedTarget { get => bLocalHasMovedToTarget; set => bLocalHasMovedToTarget = value; }
+    
+    private AIController aiController;
     private Rigidbody2D moversRigidbody2D;
     private Vector2 targetLocation;
+
+    private void Awake()
+    {
+        aiController = GetComponent<AIController>();
+    }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private void Start()
@@ -22,9 +29,13 @@ public class AiMovementComponent : MonoBehaviour, ITarget
     // Update is called once per frame
     void Update()
     {
-        if (!bLocalHasMovedToTarget)
+        if (!bLocalHasMovedToTarget || aiController.healthComponentObject.GetIsKnockedBack())
         {
             Moving();
+        }
+        else if (aiController.healthComponentObject.GetIsKnockedBack())
+        {
+            // set up for rigidbody.velocity = vector2.zero 
         }
     }
 
