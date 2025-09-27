@@ -7,15 +7,22 @@ public class AiMovementComponent : MonoBehaviour, ITarget
     
     [SerializeField] private float moveSpeed = 5f;
     [SerializeField] private bool bLocalHasMovedToTarget = false;
+    [SerializeField] private bool groundOnly = true;
     // public bool bHasReachedTarget { get => bLocalHasMovedToTarget; set => bLocalHasMovedToTarget = value; }
     
     private AIController aiController;
     private Rigidbody2D moversRigidbody2D;
     private Vector2 targetLocation;
+    public LayerMask GroundLayer;
+    public PolygonCollider2D GroundCollider;
+    public SpriteRenderer SpriteRenderer;
+    
 
     private void Awake()
     {
         aiController = GetComponent<AIController>();
+        GroundCollider = GetComponent<PolygonCollider2D>();
+        SpriteRenderer = GetComponentInChildren<SpriteRenderer>();
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -31,12 +38,14 @@ public class AiMovementComponent : MonoBehaviour, ITarget
     {
         if (aiController.healthComponentObject.GetIsKnockedBack())
         {
-            // set up for rigidbody.velocity = vector2.zero 
             return;
         }
         if (!bLocalHasMovedToTarget)
         {
-            Moving();
+            if (!groundOnly || GroundCollider.IsTouchingLayers(GroundLayer))
+            {
+                Moving();
+            }
         }
 
     }
@@ -45,7 +54,17 @@ public class AiMovementComponent : MonoBehaviour, ITarget
     {
         // throw new System.NotImplementedException();
         // moversRigidbody2D.transform.position = Vector2.MoveTowards(moversRigidbody2D.transform.position, targetLocation, moveSpeed * Time.deltaTime);
-        moversRigidbody2D.MovePosition(Vector2.MoveTowards(moversRigidbody2D.transform.position, targetLocation, moveSpeed * Time.deltaTime));
+        Vector2 moveTowardsPosition = Vector2.MoveTowards(moversRigidbody2D.transform.position, targetLocation, moveSpeed * Time.deltaTime);
+        if (moveTowardsPosition.x > moversRigidbody2D.position.x)
+        {
+            SpriteRenderer.flipX = true;
+        }
+        else if (moveTowardsPosition.x < moversRigidbody2D.position.x)
+        {
+            SpriteRenderer.flipX = false;
+        }
+        
+        moversRigidbody2D.MovePosition(moveTowardsPosition);
         
         // if (abs(moversRigidbody2D.transform.position.y - targetLocation.y) >= 0.1f) return;
         // if (Vector2.Distance(moversRigidbody2D.position, targetLocation) <= 0.1f)
