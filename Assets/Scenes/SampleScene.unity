@@ -975,6 +975,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2552752262004345722, guid: b41f72c2453d7214ea669bde1adf1b32, type: 3}
+      propertyPath: waitTimeBetweenPatrolPoints
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2552752262004345722, guid: b41f72c2453d7214ea669bde1adf1b32, type: 3}
       propertyPath: 'patrolPointLocations.Array.data[0]'
       value: 
       objectReference: {fileID: 255511152}
@@ -1024,6 +1028,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7131403803241181845, guid: b41f72c2453d7214ea669bde1adf1b32, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8904167695122764264, guid: b41f72c2453d7214ea669bde1adf1b32, type: 3}
+      propertyPath: m_ExcludeLayers.m_Bits
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8904167695122764264, guid: b41f72c2453d7214ea669bde1adf1b32, type: 3}
+      propertyPath: m_IncludeLayers.m_Bits
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -1085,7 +1097,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3842321185999374631, guid: 412a78919afce9d4fbcc0856e74bf785, type: 3}
       propertyPath: knockBackAmount
-      value: 5
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3842321185999374631, guid: 412a78919afce9d4fbcc0856e74bf785, type: 3}
       propertyPath: knockBackLiftAmount
@@ -1099,9 +1111,21 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 4657287026822195162, guid: 412a78919afce9d4fbcc0856e74bf785, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
     - target: {fileID: 5073451757226759616, guid: 412a78919afce9d4fbcc0856e74bf785, type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 8278202627055891940, guid: 412a78919afce9d4fbcc0856e74bf785, type: 3}
+      propertyPath: m_ExcludeLayers.m_Bits
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8278202627055891940, guid: 412a78919afce9d4fbcc0856e74bf785, type: 3}
+      propertyPath: m_IncludeLayers.m_Bits
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
