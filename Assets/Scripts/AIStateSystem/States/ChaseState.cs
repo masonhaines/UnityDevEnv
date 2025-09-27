@@ -12,6 +12,10 @@ public class ChaseState : IAiStates
     public void Enter(AIController aiController)
     {
         aiControllerInstance.chaseComponentObject.enabled = true;
+        aiController.movementComponentObject.OnTargetReachedCaller +=
+            aiController.patrolComponentObject.OnTargetReachedListener;
+        Debug.Log("Chase");
+
     }
 
     public void PollPerception(AIController aiController)
@@ -29,6 +33,8 @@ public class ChaseState : IAiStates
     public void Exit(AIController aiController)
     {
         aiControllerInstance.chaseComponentObject.enabled = false;
+        aiController.movementComponentObject.OnTargetReachedCaller -=
+            aiController.patrolComponentObject.OnTargetReachedListener;
     }
 }
         

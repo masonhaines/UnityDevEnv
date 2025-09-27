@@ -15,6 +15,7 @@ public class PatrolState : IAiStates
         aiControllerInstance.patrolComponentObject.enabled = true;
         aiController.movementComponentObject.OnTargetReachedCaller +=
             aiController.patrolComponentObject.OnTargetReachedListener;
+        Debug.Log("patrol");
     }
 
     public void PollPerception(AIController aiController)

@@ -8,7 +8,8 @@ public class PatrolComponent : MonoBehaviour
     [SerializeField] private Transform[] patrolPointLocations;
     [SerializeField] private float waitTimeBetweenPatrolPoints;
     private int numberOfActivePatrolPoints;
-    // private float decrementTimer;
+    private Vector2 targetPosition;
+    private int currentPatrolIndex = 0;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private void Start()
@@ -24,10 +25,7 @@ public class PatrolComponent : MonoBehaviour
     {
         moveRef = GetComponentInParent<ITarget>(); // reference to all other objects that have implement interface in parent prefab
     }
-
-    private Vector2 targetPosition;
-    private int currentPatrolIndex = 0;
-
+    
     private IEnumerator SetNewTargetPatrolPoint()
     {
         yield return new WaitForSeconds(waitTimeBetweenPatrolPoints);
@@ -54,35 +52,4 @@ public class PatrolComponent : MonoBehaviour
         StartCoroutine(SetNewTargetPatrolPoint());
     }
     
-// void Update() // Update is called once per frame
-    // {
-    //     if (moveRef == null) return;
-    //
-    //
-    //     if (moveRef.bHasReachedTarget)
-    //     {
-    //         if (decrementTimer <= 0f)
-    //         {
-    //             if (currentPatrolIndex < numberOfActivePatrolPoints - 1)
-    //             {
-    //                 // Debug.Log($"Current Patrol Index: {currentPatrolIndex}");
-    //                 currentPatrolIndex++;
-    //             }
-    //             else
-    //             {
-    //                 currentPatrolIndex = 0;
-    //             }
-    //         
-    //             // targetPosition = new Vector2(patrolPointLocations[currentPatrolIndex].position.x, patrolPointLocations[currentPatrolIndex].position.y);
-    //             targetPosition = patrolPointLocations[currentPatrolIndex].position; 
-    //             moveRef.newTargetLocation(targetPosition);
-    //             decrementTimer = waitTimeBetweenPatrolPoints; // reset
-    //         }
-    //         else
-    //         {
-    //             decrementTimer -= Time.deltaTime;
-    //         }
-    //     }
-    // }
-
 }

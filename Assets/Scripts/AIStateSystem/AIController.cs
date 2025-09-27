@@ -71,7 +71,6 @@ public class AIController : MonoBehaviour
             if (currentState != chase)
             {
                 setNewState(chase);
-                Debug.Log("Chase");
             }
         }
 
