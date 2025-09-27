@@ -28,7 +28,7 @@ public class ChaseComponent : MonoBehaviour
     }
     
     // call me in the update of ai controller
-    public void GetNewWaypoint()
+    public void GetNewWaypoint(Transform targetWaypoint)
     {
         
     }

@@ -48,8 +48,8 @@ public class AIController : MonoBehaviour
     public void PerceptionTargetLost(Transform target)
     {
         bHasPerceivedTarget = false;
-        var lastKnownTargetTransform = target;
-        detectedTargetTransform = lastKnownTargetTransform;
+        // var lastKnownTargetTransform = target;
+        // detectedTargetTransform = lastKnownTargetTransform;
         Debug.Log("Target lost: " + detectedTargetTransform.name);
     }
 
@@ -72,6 +72,7 @@ public class AIController : MonoBehaviour
             {
                 setNewState(chase);
             }
+            chaseComponentObject.GetNewWaypoint(detectedTargetTransform);
         }
 
         if (bHasPerceivedTarget && detectedTargetTransform is not null)
